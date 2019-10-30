@@ -4,14 +4,14 @@ title: Welcome to my Web Page
 
 PhD student in Computer Science at [CIFASIS](http://www.cifasis-conicet.gov.ar). Advised by
 [Mauro Jaskelioff](http://www.fceia.unr.edu.ar/~mauro/). My research focuses on
-Improvement Theory in a Lazy Functional Environment. Improvement Theory was
+Improvement Theory in a Lazy Functional Environment. Improvement Theory has been 
 developed extensively by [Prof.
-Sands](http://www.cse.chalmers.se/~dave/Homepage_David_Sands/Home.html) early in 1990.
+Sands](http://www.cse.chalmers.se/~dave/Homepage_David_Sands/Home.html) early in the nineties.
 It is based on the notion of *Improvement* presented as a refinement of *Equality* of programs.
 So starting from *a* notion of equality my idea is to derive *a* notion of
 improvement. Having defined such a notion, there is an entire *theory* to
 develop and that is my goal right now. In particular, my efforts are in present
-an Improvement Theory for effectful computations.
+an Improvement Theory with effectful computations.
 
 Before coming to CIFASIS, I was a student in the department of Computer
 Science at [Universidad Nacional de Rosario](http://web.fceia.unr.edu.ar/) from
@@ -32,7 +32,7 @@ and logic. Recently I have found my self studying history of mathematics and phi
 I like to solve problems in [ProjectEuler](https://projecteuler.net/).
 ![Project Euler Badge](https://projecteuler.net/profile/tinchos.png)
 
-But right now I am more focused on Haskell/Agda problems on [Codewars](https://www.codewars.com/).
+But right now I am more focused on Haskell/Agda problems on [Codewars](https://www.codewars.com/users/tinchos).
 ![CodeWar Badge](https://www.codewars.com/users/tinchos/badges/large)
 <!-- I am part of project [QuickFuzz](http://quickfuzz.org/) and I like solving problems -->
 <!-- in [ProjectEuler](https://projecteuler.net/) (thinking [problem 51](https://projecteuler.net/problem=51)). -->

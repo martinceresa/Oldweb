@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 import           Data.Monoid (mappend)
-import           Hakyll 
+import           Hakyll
 import           Text.Pandoc
 import           Data.Set as S
 import           Data.Default
@@ -38,22 +38,6 @@ main = hakyll $ do
         route idRoute
         compile copyFileCompiler
 
-    match "notes/*" $ do
-        route $ setExtension "html"
-        compile $ 
-            pandocCompiler
-                >>= return .  fmap demoteHeaders
-                >>= loadAndApplyTemplate "templates/temp_notes.html" defaultContext
-                >>= relativizeUrls
-
-    {-
-       match "pages/*" $ do
-              route $ setExtension "html"
-              compile $
-                  pandocCompiler
-                      >>= loadAndApplyTemplate "templates/default.html" pagesCtx
-                      >>= relativizeUrls
-    -}
     {-
        match "index.markdown" $ do
            route idRoute
@@ -63,7 +47,6 @@ main = hakyll $ do
                        listField "pages" pagesCtx (return pages) `mappend`
                        constField "title" "Home"                `mappend`
                        defaultContext
-
                getResourceBody
                    >>= applyAsTemplate indexCtx
                    >>= loadAndApplyTemplate "templates/default.html" indexCtx
@@ -72,15 +55,23 @@ main = hakyll $ do
 
     match "index.markdown" $ do
         route $ setExtension "html"
-        compile $ 
+        compile $
             pandocCompiler
                 >>= applyAsTemplate defaultContext
                 >>= loadAndApplyTemplate "templates/default.html" defaultContext
                 >>= relativizeUrls
 
+    match "project/*.markdown" $ do
+      route $ setExtension "html"
+      compile $
+        pandocCompiler
+        >>= applyAsTemplate defaultContext
+        >>= loadAndApplyTemplate "templates/nosidebar.html" defaultContext
+        >>= relativizeUrls
+
     match "research.markdown" $ do
         route $ setExtension "html"
-        compile $ 
+        compile $
             let ctx = constField "ex1" "images/parsuma.jpg"  `mappend`
                       constField "tesinapdf" "extracont/tesina.pdf"  `mappend`
                       defaultContext in
@@ -89,15 +80,6 @@ main = hakyll $ do
                 >>= applyAsTemplate ctx
                 >>= loadAndApplyTemplate "templates/nosidebar.html" ctx
                 >>= relativizeUrls
-    {-
-       match "research.markdown" $ do
-           route $ setExtension "html"
-           compile $ 
-               pandocCompiler
-                   >>= applyAsTemplate defaultContext
-                   >>= loadAndApplyTemplate "templates/nosidebar.html" defaultContext
-                   >>= relativizeUrls
-    -}
 
     match "teaching.markdown" $ do
         route $ setExtension "html"
