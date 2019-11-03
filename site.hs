@@ -38,21 +38,6 @@ main = hakyll $ do
         route idRoute
         compile copyFileCompiler
 
-    {-
-       match "index.markdown" $ do
-           route idRoute
-           compile $ do
-               pages <- loadAll "pages/*"
-               let indexCtx =
-                       listField "pages" pagesCtx (return pages) `mappend`
-                       constField "title" "Home"                `mappend`
-                       defaultContext
-               getResourceBody
-                   >>= applyAsTemplate indexCtx
-                   >>= loadAndApplyTemplate "templates/default.html" indexCtx
-                   >>= relativizeUrls
-    -}
-
     match "index.markdown" $ do
         route $ setExtension "html"
         compile $
@@ -61,32 +46,44 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/default.html" defaultContext
                 >>= relativizeUrls
 
-    match "project/*.markdown" $ do
+  -- Render each project.
+    match "projects/*.markdown" $ do
       route $ setExtension "html"
       compile $
+            let extraCtx = constField "ex1" "images/parsuma.jpg"  `mappend`
+                      constField "tesinapdf" "extracont/tesina.pdf"  `mappend`
+                      postCtx in
+        do
         pandocCompiler
-        >>= applyAsTemplate defaultContext
-        >>= loadAndApplyTemplate "templates/nosidebar.html" defaultContext
+        >>= applyAsTemplate extraCtx
         >>= relativizeUrls
+
+    create ["projects.html"] $ do
+        route idRoute
+        compile $ do
+            projs <- recentFirst =<< loadAll "projects/*"
+            let ctx = listField "ps" defaultContext (return projs) <>
+                      constField "title" "Projects" <>
+                      defaultContext
+            makeItem ""
+                >>= loadAndApplyTemplate "templates/pages.html" ctx
+                >>= loadAndApplyTemplate "templates/nosidebar.html" ctx
+                >>= relativizeUrls
 
     match "research.markdown" $ do
         route $ setExtension "html"
-        compile $
-            let ctx = constField "ex1" "images/parsuma.jpg"  `mappend`
-                      constField "tesinapdf" "extracont/tesina.pdf"  `mappend`
-                      defaultContext in
-            pandocCompilerWith markdownReader def
-                >>= return . fmap (demoteHeaders )
-                >>= applyAsTemplate ctx
-                >>= loadAndApplyTemplate "templates/nosidebar.html" ctx
+        compile $ do
+          pandocCompiler
+                >>= return . fmap demoteHeaders
+                >>= loadAndApplyTemplate "templates/nosidebar.html" defaultContext
                 >>= relativizeUrls
 
     match "teaching.markdown" $ do
         route $ setExtension "html"
         compile $ do
             let
-                ctx = constField "presentation" "extracont/presentation.tpp"  `mappend`
-                        pagesCtx
+                ctx = constField "presentation" "extracont/presentation.tpp"
+                  `mappend` pagesCtx
             pandocCompiler
                 >>= return . fmap demoteHeaders
                 >>= applyAsTemplate ctx
