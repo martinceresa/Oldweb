@@ -37,6 +37,6 @@ But right now I am more focused on Haskell/Agda problems on [Codewars](https://w
 <!-- I am part of project [QuickFuzz](http://quickfuzz.org/) and I like solving problems -->
 <!-- in [ProjectEuler](https://projecteuler.net/) (thinking [problem 51](https://projecteuler.net/problem=51)). -->
 
-In my free time moments, I like to meditate (mindfulness), do some Yoga
+In my free time, I like to meditate (mindfulness), do some Yoga
 (Hatha/Dynamic) or even better practice Capoeira! I love to hangout with my
 friends and enjoy myself reading to death.
