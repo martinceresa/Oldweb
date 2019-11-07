@@ -59,6 +59,29 @@
 <h4 id="megadeth">MegaDeTH</h4>
 <p><a href="https://github.com/CIFASIS/Megadeth">MegaDeTh</a> is an abandoned project, spin-off of QuickFuzz. Mega Derivation TH (MegaDeTh) gives the user an aggressive way to derive instances for all the intermediate nested types that are needed to make the top-level instance work.</p>
 
+    <h4 id="modelica-modular-compiler">Modelica Modular Compiler</h4>
+<p><a href="https://www.modelica.org/">Modelica Language</a> is a non-proprietary, object-oriented, equation based language to conveniently model complex physical systems containing, e.g., mechanical, electrical, electronic, hydraulic, thermal, control, electric power or process-oriented subcomponents.</p>
+<p>Modelica is a growing language, presenting new language constructions every now an then. A <a href="https://www.fceia.unr.edu.ar/~fbergero/">fellow researcher</a> asked me how to simplify the process of adding new features to the language. My answer was obviously <strong>yes</strong> but you will have to learn a bit of Haskell.</p>
+<p>The result was a modular compiler construction with a lot of type information preserving. The main idea was build specific AST to each compiler stage based on <em>blocks</em> and <em>traversable/foldable</em> functions.</p>
+<p>Sadly we did not finish this project, and <a href="https://bitbucket.org/fbergero/modelica-hc">the code</a> was left to die.</p>
+<p>The main ideas implemented for modular construction and consumption used here were:</p>
+<ul>
+<li>Data Types a la Carte : for simple modular data construction.</li>
+<li>High-Order Functors and High-Order Free Monad: bigger trees with holes :D!. Classic definitions with a bit more Type/Kind information.</li>
+</ul>
+<pre><code>data HFree :: ((u -&gt; *) -&gt; u -&gt; *) -&gt; (u -&gt; *) -&gt; u -&gt; * where
+     Return :: f a -&gt; HFree h f a
+     Op     :: h (HFree h f) a -&gt; HFree h f a</code></pre>
+<p>Which enable us to given a <em>High Functor</em> consume such structure with a <em>catamorphism</em>.</p>
+<p>As presented to me, there were three basic stages presenting each one a bit different AST from one another. Following my implementation we were able to explicitly say how to build such an AST and write simple functions from one stage to another.</p>
+<p>For example, Flat Expression Modelica Ast:</p>
+<pre><code>type FlatAstDom =
+  ClassDefinition + DerivedExtendedClass + EnumShortClass + RegularClass (Ident, Ident)
+  + Composition + Component TypePrefix + External (FlatRef := 'TSubscript) + Declaration + ElementMod + Modification
+  + Assign (FlatRef := 'TSubscript) + CallOutput CallArguments (FlatRef := 'TSubscript) + Statement + CallEq CallArguments
+  + ForEq + IfWhen + EString + CallExpression + NumExp + Reference (FlatRef := 'TSubscript) + ArrayCons CallArguments
+  + Expression + Subscript + FunExp</code></pre>
+
     <h4 id="klytius">Klytius</h4>
 <p>The use of the basic parallel combinators in Haskell produces a certain effect in runtime, which is the parallelization of our program. But that effect is not directly observable, we can try to guess what happened using tools like <a href="https://wiki.haskell.org/ThreadScope/">ThreadScope</a>, but we still cannot match the behaviour of our program and its source code. In this work I designed an EDSL around the basic combinators to produce a <em>parallel structure</em> of programs, a data type that reassembles how the parallel combinators were used in the source code, so one can see and analyze the inherent parallel behaviour of our programs. The aim of this work was the development of a tool to make parallelism observable, so one can use this information to help undergraduate students get a better understanding, or to study the parallelism of our programs. <br /> <a href="https://en.wikipedia.org/wiki/Clytius">Klytius</a> is a tool to expose dynamic behavior based on the basic Haskell parallel primitives. The idea behind Klytius is to show the inner dynamic structure of your programs, based on <em>par</em> and <em>pseq</em>. Klytius is a deep EDSL, with the ability to show you this dynamic structure of your programs in a graphical way. The code is in this public repository <a href="https://bitbucket.org/plfun/klytius">Klytius</a>, and I am open to critics and suggestions! This was the final project of my career where I write down all the theoretical framework needed <a href="../extracont/tesina.pdf">here</a> (and <a href="https://bitbucket.org/martinceresa/ejemplo-tesina">the source code</a>) but sadly it is in spanish.</p>
 <h5 id="examples">Examples</h5>
