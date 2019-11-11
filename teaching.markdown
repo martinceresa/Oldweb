@@ -10,6 +10,7 @@ new challenges and ideas, keep me learning something new every day!
 
 - **Compilers**
     + Adjunct Professor - since 2019
+    + [Extras](/$extras$)
 - **Data Structures and Algorithms I**
     + Teacher Assistant - since 2019 
 - **Compilers**

@@ -83,6 +83,7 @@ main = hakyll $ do
         compile $ do
             let
                 ctx = constField "presentation" "extracont/presentation.tpp"
+                  <> constField "extras" "extracont/Extras.pdf"
                   `mappend` pagesCtx
             pandocCompiler
                 >>= return . fmap demoteHeaders
