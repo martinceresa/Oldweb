@@ -33,7 +33,7 @@
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
-								<li><a href="./index.html">Welcome</a></li>
+								<li><a href="./projects.html">Projects</a></li>
 								<li><a href="./research.html">Research</a></li>
 								<li><a href="./teaching.html">Teaching</a></li>
 							</ul>
@@ -43,39 +43,71 @@
 		
 		<!-- Main -->
         <div id="main-wrapper">
-                <div class="container">
-                        <div id="content">
-                                <!-- Content -->
-                                
-                                    <h1>Projects</h1>
-                                
-                                <article>
-                                
+          <div class="container">
+            <div id="content">
+              <!-- Content -->
+              
+                  <h1>Projects</h1>
+              
+              <article>
+              
+    <h4 id="hlola">HLola</h4>
+<p>Most recent project I had the pleasure to get involved is <a href="https://github.com/imdea-software/hlola">HLola</a>. <em>HLola</em> is a <a href>Lola</a> engine. It is presented as embedded Domain Specific Language in Haskell were we tried to get rid of concrete types and focus our attention on the <em>temporal aspects</em> of a given specification. Abstracting away specific types, not only we presented (finally) an implementation were in principle simple types can be added seamlessly <strong>but also</strong> we maintained the wonderful property of constant memory execution for a proved kind of specification. My role here was to provide guidance on the creation and implementation of such an eDSL.</p>
 
-                                </article>
-                                <!-- End Content -->
-                        </div>
-                </div>
+    <h4 id="quickfuzz">QuickFuzz</h4>
+<p><a href="https://github.com/CIFASIS/QuickFuzz">QuickFuzz</a> is an abandoned project. It is a tool written in Haskell designed for testing un-expected inputs of common file formats on third-party software, taking advantage of off-the-shelf, well known fuzzers. Unlike other generational fuzzers, QuickFuzz <strong>does not</strong> require to write specifications for the file formats in question since it relies on existing file-format-handling libraries available on the Haskell code repository.</p>
+<h4 id="megadeth">MegaDeTH</h4>
+<p><a href="https://github.com/CIFASIS/Megadeth">MegaDeTh</a> is an abandoned project, spin-off of QuickFuzz. Mega Derivation TH (MegaDeTh) gives the user an aggressive way to derive instances for all the intermediate nested types that are needed to make the top-level instance work.</p>
+
+    <h4 id="modelica-modular-compiler">Modelica Modular Compiler</h4>
+<p><a href="https://www.modelica.org/">Modelica Language</a> is a non-proprietary, object-oriented, equation based language to conveniently model complex physical systems containing, e.g., mechanical, electrical, electronic, hydraulic, thermal, control, electric power or process-oriented subcomponents. Modelica is a growing language, presenting new language constructions every now an then. A <a href="https://www.fceia.unr.edu.ar/~fbergero/">fellow researcher</a> asked me how to simplify the process of adding new features to the language. My answer was obviously <strong>yes</strong> but you will have to learn a bit of Haskell. The result was a modular compiler construction with a lot of type information preserving. The main idea was build specific AST to each compiler stage based on <em>blocks</em> and <em>traversable/foldable</em> functions. Sadly <strong>we did not finish</strong> this project, and <a href="https://bitbucket.org/fbergero/modelica-hc">the code</a> was left to die. The main ideas implemented for modular construction and consumption used here were: + Data Types a la Carte : for simple modular data construction. + High-Order Functors and High-Order Free Monad: bigger trees with holes :D!. Classic definitions with a bit more Type/Kind information.</p>
+<pre><code>data HFree :: ((u -&gt; *) -&gt; u -&gt; *) -&gt; (u -&gt; *) -&gt; u -&gt; * where
+     Return :: f a -&gt; HFree h f a
+     Op     :: h (HFree h f) a -&gt; HFree h f a</code></pre>
+<p>Which enable us to given a <em>High Functor</em> consume such structure with a <em>catamorphism</em>.</p>
+<p>As presented to me, there were three basic stages presenting each one a bit different AST from one another. Following my implementation we were able to explicitly say how to build such an AST and write simple functions from one stage to another. For example, Flat Expression Modelica Ast:</p>
+<pre><code>type FlatAstDom =
+  ClassDefinition + DerivedExtendedClass + EnumShortClass + RegularClass (Ident, Ident)
+  + Composition + Component TypePrefix + External (FlatRef := 'TSubscript) + Declaration + ElementMod + Modification
+  + Assign (FlatRef := 'TSubscript) + CallOutput CallArguments (FlatRef := 'TSubscript) + Statement + CallEq CallArguments
+  + ForEq + IfWhen + EString + CallExpression + NumExp + Reference (FlatRef := 'TSubscript) + ArrayCons CallArguments
+  + Expression + Subscript + FunExp</code></pre>
+
+    <h4 id="klytius">Klytius</h4>
+<p>The use of the basic parallel combinators in Haskell produces a certain effect in runtime, which is the parallelization of our program. But that effect is not directly observable, we can try to guess what happened using tools like <a href="https://wiki.haskell.org/ThreadScope/">ThreadScope</a>, but we still cannot match the behaviour of our program and its source code. In this work I designed an EDSL around the basic combinators to produce a <em>parallel structure</em> of programs, a data type that reassembles how the parallel combinators were used in the source code, so one can see and analyze the inherent parallel behaviour of our programs. The aim of this work was the development of a tool to make parallelism observable, so one can use this information to help undergraduate students get a better understanding, or to study the parallelism of our programs. <br /> <a href="https://en.wikipedia.org/wiki/Clytius">Klytius</a> is a tool to expose dynamic behavior based on the basic Haskell parallel primitives. The idea behind Klytius is to show the inner dynamic structure of your programs, based on <em>par</em> and <em>pseq</em>. Klytius is a deep EDSL, with the ability to show you this dynamic structure of your programs in a graphical way. The code is in this public repository <a href="https://bitbucket.org/plfun/klytius">Klytius</a>, and I am open to critics and suggestions! This was the final project of my career where I write down all the theoretical framework needed <a href="../extracont/tesina.pdf">here</a> (and <a href="https://bitbucket.org/martinceresa/ejemplo-tesina">the source code</a>) but sadly it is in spanish.</p>
+<h5 id="examples">Examples</h5>
+<p>Lets see an example, suppose you want to add two Int expressions and you want it to be made in parallel. We can evaluate those two expressions in parallel and then make the addition, with Klytius we could get a picture as shown below where the circle represents the presence of <em>par</em> and the hexagon represents the presence of <em>pseq</em>, while boxes represent values. <br /> <img src="../images/parsuma.jpg" alt="Example" /></p>
+
+
+              </article>
+              <!-- End Content -->
+            </div>
+          </div>
         </div>
 		<!-- End Main -->
 
-		<!-- Footer -->
-			<div id="footer-wrapper">
-				<footer id="footer" class="container">
-					<div class="row">
-						<div class="12u">
-							<div id="copyright">
-								<ul class="menu">
-									<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-                                    <li>Implementation:
-                                        <a href="http://jaspervdj.be/hakyll">Hakyll</a>
-                                    </li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</footer>
-			</div>
-		<!-- End Footer -->
+    <!-- Footer -->
+    <div id="footer-wrapper">
+      <footer id="footer" class="container">
+        <div class="row">
+          <div class="12u">
+            <div id="copyright">
+              <ul class="menu">
+                <li>
+                  Design: <a href="http://html5up.net">HTML5 UP</a>
+                </li>
+                <li>
+                  Implementation:
+                    <a href="http://jaspervdj.be/hakyll">
+                      Hakyll
+                    </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <!-- End Footer -->
 	</body>
 </html>
