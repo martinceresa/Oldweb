@@ -17,8 +17,8 @@ Before coming to CIFASIS, I was a student in the department of Computer
 Science at [Universidad Nacional de Rosario](http://web.fceia.unr.edu.ar/) from
 where I graduated in March, 2015.
 
-In 2013, I worked as intern at [IMDEA](https://software.imdea.org/) (Madrid,
-Spain) under the tutelage of [Benedikt Schmidt](http://beschmi.net/), in the
+In 2013, I interned at [IMDEA](https://software.imdea.org/) (Madrid,
+Spain) under the supervision of [Benedikt Schmidt](http://beschmi.net/), in the
 development of automatic tactics in
 [EasyCrypt](https://www.easycrypt.info/trac/). In this internship I have learned
 about Modern Cryptography Proofs, and a bit about tactic development. I
@@ -30,13 +30,16 @@ theory, type theory, category theory, mathematics, foundation of mathematics, to
 and logic. Recently I have found my self studying history of mathematics and philosophy of mathematics.
 
 I like to solve problems in [ProjectEuler](https://projecteuler.net/).
+
 ![Project Euler Badge](https://projecteuler.net/profile/tinchos.png)
 
 But right now I am more focused on Haskell/Agda problems on [Codewars](https://www.codewars.com/users/tinchos).
+
 ![CodeWar Badge](https://www.codewars.com/users/tinchos/badges/large)
 <!-- I am part of project [QuickFuzz](http://quickfuzz.org/) and I like solving problems -->
 <!-- in [ProjectEuler](https://projecteuler.net/) (thinking [problem 51](https://projecteuler.net/problem=51)). -->
 
-In my free time, I like to meditate (mindfulness), do some Yoga
-(Hatha/Dynamic) or even better practice Capoeira! I love to hangout with my
-friends and enjoy myself reading to death.
+And once solved a [GHC's issue](https://gitlab.haskell.org/xich/ghc/commit/f3be304abed6407b5ef148d76e4679c88018c780).
+
+In my free time, I like to meditate (mindfulness), do some Yoga (Hatha/Dynamic)
+or even better practice Capoeira! I also love to hangout with my friends and read!
